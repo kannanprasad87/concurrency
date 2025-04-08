@@ -5,12 +5,12 @@ import PlaygroundSupport
 
 PlaygroundPage.current.needsIndefiniteExecution = true
 
-var value: Int = 100
+
 let serialQueue = DispatchQueue(label: "com.queue.Serial")
 
 func doAsyncTaskInSerialQueue() {
         for i in 1...3 {
-            serialQueue.async {
+            serialQueue.sync {
             if Thread.isMainThread{
                 print("\(i): task running in main 🧵 ")
             }else{
@@ -27,8 +27,7 @@ doAsyncTaskInSerialQueue()
 
 serialQueue.async {
     for i in 1...3 {
-        value = i
-        print("\(value) ✴️ ")
+        print("\(i) ✴️ ")
     }
 }
 

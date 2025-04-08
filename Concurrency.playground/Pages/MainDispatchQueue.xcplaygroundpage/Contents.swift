@@ -5,6 +5,8 @@ import PlaygroundSupport
 
 PlaygroundPage.current.needsIndefiniteExecution = true
 
+//MARK: DispatchQueue Main queue
+
 DispatchQueue.main.async {
     print(Thread.isMainThread ? "Execution in main thread" : "Not in main thread.")
 }
@@ -36,16 +38,5 @@ DispatchQueue.global().async {
     }
 }
 
-DispatchQueue.global(qos:.background).async {
-    for i in 100...105 {
-        print(i)
-    }
-}
-
-DispatchQueue.global(qos:.userInteractive).async {
-    for i in 200...205 {
-        print(i)
-    }
-}
 //: [Next](@next)
 

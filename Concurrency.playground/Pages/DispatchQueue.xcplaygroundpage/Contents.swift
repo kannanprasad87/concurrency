@@ -2,35 +2,38 @@
 
 import Foundation
 
-let queue1 = DispatchQueue(label: "Queue1")
+let serialQueue = DispatchQueue(label: "com.serial.test")
 
-let queue2 = DispatchQueue(label: "Queue2",
-                           attributes: .concurrent,
-                           target: queue1)
+let concurrentQueue = DispatchQueue(label: "com.concurrent.test", attributes: [.concurrent, .initiallyInactive], target: serialQueue)
+
+concurrentQueue.activate()
 
 
-queue1.async {
-    for i in 0...5 {
-        print(i)
+concurrentQueue.async {
+    for j in 0...3 {
+        print(j)
     }
 }
 
-queue1.async {
-    for i in 6...10 {
-        print(i)
+concurrentQueue.async {
+    for j in 10...15 {
+        print(j)
     }
 }
 
-queue2.async {
-    for i in 11...15 {
-        print(i)
-    }
-}
-
-queue2.async {
-    for i in 16...20 {
-        print(i)
-    }
-}
+/*
+ 
+ 0
+ 1
+ 2
+ 3
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 
+ */
 
 //: [Next](@next)
